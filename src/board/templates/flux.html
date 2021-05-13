@@ -21,7 +21,7 @@
             </div>
             <div class="row-align box">
                 {% if ticket.image %}
-                <img src="" width="100px" height="100px" alt="img" />{{ ticket.image }}
+                <img src="{{ ticket.image.url }}" width="100px" height="100px" alt="img" />
                 {% endif %}
             </div>
             <div class="row-align_end">
@@ -33,18 +33,18 @@
                 {% for review in ticket.review_set.all %}
 
                 <div class="ticket border border-dark mt-4 pl-3 pr-3 pb-2">
-                    <p><span class="font-weight-bold">Critique publiée par {{review.username}}</span>
+                    <p><span class="font-weight-bold">Critique publiée par {{review.user}}</span>
                         <span class="font-weight-light ml-2">{{review.time_created}}</span>
                     </p>
 
                     <div class="box">
-                        <h5>{{ review.headline }}></h5>
+                        <h5>{{ review.headline }}</h5>
                     </div>
                     <div class="box">
                         {{ review.body }}
                     </div>
                     <div class="box">
-                        <h5>Note : {{ review.rate }}</h5>
+                        <h5>Note : {{ review.rating }}<span class="text-warning">&#9733</span></h5>
                     </div>
                 </div>
                 {% endfor %}

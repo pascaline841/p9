@@ -40,7 +40,7 @@
             </div>
             {% if ticket.image %}
             <div class="row-align box">
-                <img src="" width="100px" height="100px" alt="img" />{{ ticket.image }}
+                <img src="{{ ticket.image.url }}" width="100px" height="100px" alt="img" />
             </div>
             {% endif %}
             <div class="row-align_end">
@@ -60,13 +60,13 @@
                     </p>
 
                     <div class="box">
-                        <h5>{{ review.headline }}></h5>
+                        <h5>{{ review.headline }}</h5>
                     </div>
                     <div class="box">
                         {{ review.body }}
                     </div>
                     <div class="box">
-                        <h5>Note : {{ review.rate }}</h5>
+                        <h5>Note : {{ review.rating }}<span class="text-warning">&#9733</span></h5>
                     </div>
                     <div class="row-align_end">
                         <a href="" class="button">

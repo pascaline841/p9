@@ -3,12 +3,15 @@ from django.shortcuts import render, redirect
 
 from .forms import TicketForm, ReviewForm
 from .models import Ticket, Review
-
+from follow.models import UserFollows
 
 @login_required
 def display_flux(request):
     """Display tickets and review from the following accounts."""
-    tickets = Ticket.objects.filter().order_by("-time_created")
+    users = [followed.followed_user for followed in UserFollows.objects.filter(
+        user=request.user)]
+    users.append(request.user)
+    tickets = Ticket.objects.filter(user__in=users).exclude(user=request.user).order_by("-time_created")
     return render(request, "flux.html", {"tickets": tickets})
 
 @login_required
