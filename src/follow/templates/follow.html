@@ -25,12 +25,12 @@
             </tr>
         </thead>
         <tbody>
-            {% for uf in user_follows %}
-            {% if uf.user == user %}
+            {% for followed in user_follows %}
+            {% if followed.user == user %}
             <tr>
-                <td class="col-10" style="border: 1px solid black;">{{ uf.followed_user }}</td>
+                <td class="col-10" style="border: 1px solid black;">{{ followed.followed_user }}</td>
                 <td class="col-2 text-center" style="border: 1px solid black;">
-                    <a class="text-dark" href="{% url 'follow:unfollow' uf.followed_user %}">Se désabonner</a>
+                    <a class="text-dark" href="{% url 'follow:unfollow' followed.followed_user %}">Se désabonner</a>
                 </td>
             </tr>
             {% endif %}
@@ -50,10 +50,10 @@
             </tr>
         </thead>
         <tbody>
-            {% for uf in user_follows %}
-            {% if uf.followed_user == user %}
+            {% for followed in user_follows %}
+            {% if followed.followed_user == user %}
             <tr>
-                <td style="border: 1px solid black;">{{ uf.user }}</td>
+                <td style="border: 1px solid black;">{{ followed.user }}</td>
             </tr>
             {% endif %}
             {% endfor %}

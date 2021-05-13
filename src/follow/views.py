@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
+from django.shortcuts import render, redirect
 
 from .models import UserFollows
 
-
+@login_required
 def followup(request):
     """Add users to subscription function."""
     context = {"error": None, "user_follows": UserFollows.objects.all()}
@@ -27,7 +28,7 @@ def followup(request):
     return render(request, "follow.html", context)
 
 
-
+@login_required
 def unfollow(request, user_to_unfollow):
     """Unsubscribe users function. """
     user_to_unfollow = User.objects.get(username=user_to_unfollow)
