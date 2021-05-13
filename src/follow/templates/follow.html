@@ -1,0 +1,65 @@
+{%extends 'base_board.html'%}
+
+
+{% block content %}
+<div class="container">
+    <ol class="breadcrumb my-4">
+        <li class="breadcrumb-item active">Suivre d'autres utilisateurs </li>
+        <form method="POST" action="{% url 'follow:follow' %}">
+            {% csrf_token %}
+            <input class="form-control" type="text" name="username" placeholder="Nom d'utilisateur" required>
+            <input class="btn btn-primary" type="submit" value="S'abonner">
+        </form>
+    </ol>
+</div>
+
+<div class="container">
+    <ol class="breadcrumb my-4">
+        <li class="breadcrumb-item active">Abonnements</li>
+    </ol>
+    <table class="table">
+        <thead class="thead-inverse">
+            <tr>
+                <th>Utilisateurs</th>
+                <th>Option</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for uf in user_follows %}
+            {% if uf.user == user %}
+            <tr>
+                <td class="col-10" style="border: 1px solid black;">{{ uf.followed_user }}</td>
+                <td class="col-2 text-center" style="border: 1px solid black;">
+                    <a class="text-dark" href="{% url 'follow:unfollow' uf.followed_user %}">Se désabonner</a>
+                </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+
+    </table>
+</div>
+<div class="container">
+    <ol class="breadcrumb my-4">
+        <li class="breadcrumb-item active">Abonnés</li>
+    </ol>
+    <table class="table">
+        <thead class="thead-inverse">
+            <tr>
+                <th>Abonnés</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for uf in user_follows %}
+            {% if uf.followed_user == user %}
+            <tr>
+                <td style="border: 1px solid black;">{{ uf.user }}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
