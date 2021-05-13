@@ -7,8 +7,13 @@
     <form method="POST" action="{% url 'login:index' %}">
         {% csrf_token %}
         {{ form.as_p}}
-        <a href="{% url 'login:indexe' %}" class="button">Retour</a>
+        <a href="{% url 'login:index' %}" class="button">Retour</a>
         <input class="btn btn-primary" type="submit" value="S'inscrire">
+        {% if messages %}
+        {% for message in messages %}
+        <p class="text-danger"> {{message}}</p>
+        {% endfor %}
+        {% endif %}
     </form>
 </div>
 {% endblock %}
