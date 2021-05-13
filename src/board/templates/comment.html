@@ -1,0 +1,18 @@
+{% extends 'base_board.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Répondre une critique</h2>
+</div>
+<div class="border border-dark p-2">
+    <p>Vous êtes en train de poster en réponse à</p>
+</div>
+<form class="border border-dark p-2" method="POST" action="{% url 'board:comment' ticket.title %}">
+    {% csrf_token %}
+    {{form}}
+    <div class="text-end mt-3">
+        <input class="btn btn-success" type="submit" value="Envoyer">
+    </div>
+</form>
+
+{% endblock %}

@@ -1,0 +1,87 @@
+{%extends 'base_board.html' %}
+
+
+
+{% block content %}
+<div class="max_width">
+    <div class="row-align_end">
+        <a href="{% url 'board:ticket' %}" class="button">
+            Demander une critique
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'board:review' %}" class="button primary">
+            Ecrire une critique
+        </a>
+    </div>
+</div>
+<div class="row d-flex justify-content-center ">
+    <h2>Vos posts</h2>
+</div>
+
+{% for ticket in tickets %}
+{% if ticket.user == user %}
+<div class="row d-flex justify-content-center ">
+    <article class="col-lg-6">
+        <div class="ticket border border-dark mt-4 pl-3 pr-3 pb-2">
+            <p>
+                <span class="font-weight-light ml-12">Ticket publié le </span>
+                <span class="font-weight-bold">{{ticket.time_created}}</span>
+            </p>
+
+            <div class="box">
+                <h5>
+                    {{ ticket.title }}
+                </h5>
+            </div>
+
+            <div class="box">
+                {{ ticket.description|safe}}
+            </div>
+            {% if ticket.image %}
+            <div class="row-align box">
+                <img src="" width="100px" height="100px" alt="img" />{{ ticket.image }}
+            </div>
+            {% endif %}
+            <div class="row-align_end">
+                <a href="" class="button">
+                    Modifier
+                </a>
+                <a href="">
+                    Supprimer
+                </a>
+            </div>
+            <div>
+                {% for review in ticket.review_set.all %}
+
+                <div class="ticket border border-dark mt-4 pl-3 pr-3 pb-2">
+                    <p><span class="font-weight-bold">Critique publiée</span>
+                        <span class="font-weight-light ml-2">{{review.time_created}}</span>
+                    </p>
+
+                    <div class="box">
+                        <h5>{{ review.headline }}></h5>
+                    </div>
+                    <div class="box">
+                        {{ review.body }}
+                    </div>
+                    <div class="box">
+                        <h5>Note : {{ review.rate }}</h5>
+                    </div>
+                    <div class="row-align_end">
+                        <a href="" class="button">
+                            Modifier
+                        </a>
+                        <a href="">
+                            Supprimer
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </article>
+</div>
+{% endif %}
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,57 @@
+{%extends 'base_board.html'%}
+
+
+{% block content %}
+
+{% for ticket in tickets %}
+<div class="row d-flex justify-content-center ">
+    <div class="col-lg-6">
+        <div class="flux border border-dark mt-4 pl-3 pr-3 pb-2">
+            <p><span class="font-weight-bold">{{ticket.user}} a demandé une critique</span>
+                <span class="font-weight-light ml-2">{{ticket.time_created}}</span>
+            </p>
+            <div class="box">
+                <h5>
+                    {{ ticket.title }}
+                </h5>
+            </div>
+
+            <div class="box">
+                {{ ticket.description|safe}}
+            </div>
+            <div class="row-align box">
+                {% if ticket.image %}
+                <img src="" width="100px" height="100px" alt="img" />{{ ticket.image }}
+                {% endif %}
+            </div>
+            <div class="row-align_end">
+                <a href="" class="button">
+                    Répondre
+                </a>
+            </div>
+            <div>
+                {% for review in ticket.review_set.all %}
+
+                <div class="ticket border border-dark mt-4 pl-3 pr-3 pb-2">
+                    <p><span class="font-weight-bold">Critique publiée par {{review.username}}</span>
+                        <span class="font-weight-light ml-2">{{review.time_created}}</span>
+                    </p>
+
+                    <div class="box">
+                        <h5>{{ review.headline }}></h5>
+                    </div>
+                    <div class="box">
+                        {{ review.body }}
+                    </div>
+                    <div class="box">
+                        <h5>Note : {{ review.rate }}</h5>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        </article>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
