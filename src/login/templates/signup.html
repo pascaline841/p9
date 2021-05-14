@@ -2,18 +2,25 @@
 
 
 {% block content %}
-<div class="container">
-    <h2>Inscrivez-vous</h2>
-    <form method="POST" action="{% url 'login:index' %}">
-        {% csrf_token %}
-        {{ form.as_p}}
-        <a href="{% url 'login:index' %}" class="button">Retour</a>
-        <input class="btn btn-primary" type="submit" value="S'inscrire">
-        {% if messages %}
-        {% for message in messages %}
-        <p class="text-danger"> {{message}}</p>
-        {% endfor %}
-        {% endif %}
-    </form>
+<div class="row justify-content-center">
+    <div class="col-lg-4 col-md-6 col-sm-8 pt-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <h3 class="card-title">Inscrivez-vous</h3>
+                <form class="pt-3" method="POST" action="{% url 'login:index' %}">
+                    {% csrf_token %}
+                    {{ form.as_p}}
+                    <a class="button text-muted" href="{% url 'login:index' %}">Retour</a>
+                    <input class="btn btn-primary" type="submit" value="S'inscrire"
+                        onclick="return confirm('Votre compte est bien enregistré')">
+                    {% if messages %}
+                    {% for message in messages %}
+                    <p class="text-danger"> {{message}}</p>
+                    {% endfor %}
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

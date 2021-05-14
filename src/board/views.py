@@ -47,13 +47,16 @@ def delete_ticket(request, ticket_title):
 def update_ticket(request, ticket_title):
     """Update a ticket. """
     ticket = Ticket.objects.get(title=ticket_title)
-    if request.user == ticket.user:
-        if request.method != "POST":
-            return render(request, "ticket.html", {"ticket": ticket})
-        form = TicketForm(request.POST, request.FILES, initial=ticket)
-        if form.is_valid():
-            form.save()
-        return redirect("board:posts")
+    if ticket.user == request.user:
+        form = TicketForm(instance=ticket)
+        if request.method == "POST":
+            form = TicketForm(request.POST, request.FILES, instance=ticket)
+            if form.is_valid():
+                form.save()
+                return redirect("board:posts")
+    return render(request, "ticket.html", {"ticket": ticket})
+
+        
 
 @login_required
 def create_review(request):
@@ -87,7 +90,7 @@ def add_comment(request, ticket_title):
             return redirect("board:flux")
     else :
         form = ReviewForm()
-    return render(request, "review.html", {"form":form})
+    return render(request, "comment.html", {"form":form, 'ticket': ticket, 'r': range(6)})
 
 @login_required
 def delete_review(request, review_headline):
@@ -102,10 +105,11 @@ def update_review(request, review_headline):
     """Update a review without user ticket. """
     review = Review.objects.get(headline=review_headline)
     if request.user == review.user:
-        if request.method != "POST":
-            return render(request, "review.html", 
-                            {"review": review, "r": range(6)})
-        form = ReviewForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-        return redirect("board:posts")
+        form = ReviewForm(instance=review)
+        if request.method == "POST":
+            form = ReviewForm(request.POST, request.FILES, instance = review)    
+            if form.is_valid():
+                form.save()    
+                return redirect("board:posts")
+    return render(request, "review.html", {"review": review, "r": range(6)})
+        

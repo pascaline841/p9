@@ -1,15 +1,23 @@
-{%extends 'base_board.html'%}
+{% extends 'base_board.html' %}
 
 
 {% block content %}
-<div class="container">
-    <h2>Créer un ticket</h2>
+<div class="row d-flex justify-content-center ">
+    <h2>Demander une critique</h2>
 </div>
-<form method="POST" action="{% url 'board:ticket' %}" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <div class="text-end mt-3">
-        <input class="btn btn-success" type="submit" value="Envoyer">
-    </div>
-</form>
+<div class="row d-flex justify-content-center py-2">
+    <article class="col-lg-6">
+        <div class="border rounder 3px bg-light mt-4 pl-3 pr-3 py-2">
+            <form class="font-weight-bold" method="POST" action="{% url 'board:ticket' %}"
+                enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="text-right">
+                    <input class="btn btn-success" type="submit" value="Envoyer">
+                </div>
+            </form>
+        </div>
+    </article>
+</div>
+
 {% endblock %}

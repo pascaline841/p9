@@ -1,4 +1,3 @@
-from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import render, redirect
@@ -7,13 +6,10 @@ from django.shortcuts import render, redirect
 def signup(request):
     """Create a user account. """ 
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = UserCreationForm(data =request.POST)
         if form.is_valid():
             user= form.save()
             login(request, user)
-            messages.success(
-                request, 'Votre compte "' + user + '" est bien enregistré'
-            )
             return redirect("login:index")
     else:
         form = UserCreationForm()
@@ -29,7 +25,6 @@ def signin(request):
             return redirect("board:flux")
     else:
         form = AuthenticationForm()
-        messages.info(request, "Identifiant ou mot de passe incorrect")
     return render(request, "index.html", {"form": form})
 
 

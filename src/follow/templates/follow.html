@@ -2,69 +2,79 @@
 
 
 {% block content %}
-<div class="container">
-    <ol class="breadcrumb my-4">
-        <li class="breadcrumb-item active">Suivre d'autres utilisateurs </li>
-        <form method="POST" action="{% url 'follow:follow' %}">
-            {% csrf_token %}
-            <input class="form-control" type="text" name="username" placeholder="Nom d'utilisateur" required>
-            <input class="btn btn-primary" type="submit" value="S'abonner">
-            {% if messages %}
-            {% for message in messages %}
-            <p class="text-danger"> {{message}}</p>
-            {% endfor %}
-            {% endif %}
-        </form>
-    </ol>
+<div class="row d-flex justify-content-center py-2">
+    <div class="col-lg-6">
+        <div class="container">
+            <ol class="breadcrumb my-4">
+                <li class="breadcrumb-item mt-2">Rechercher d'autres utilisateurs</li>
+                <div class="col">
+                    <form method="POST" action="{% url 'follow:follow' %}">
+                        {% csrf_token %}
+                        <div class="d-flex justify-content-between">
+                            <input class="form-control col-7" type="text" name="username" width="30"
+                                placeholder="Nom d'utilisateur" required>
+                            <input class="btn btn-primary col-4 ml-1" type="submit" value="S'abonner" />
+                            {% if messages %}
+                            {% for message in messages %}
+                            <p class="text-danger"> {{message}}</p>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                    </form>
+                </div>
+            </ol>
+        </div>
+
+
+        <div class="container">
+            <ol class="breadcrumb my-4">
+                <li class="breadcrumb-item active-color">Abonnements</li>
+            </ol>
+            <table class="table">
+                <thead class="thead-inverse">
+                    <tr class="text-center">
+                        <th>Utilisateurs</th>
+                        <th>Option</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for followed in user_follows %}
+                    {% if followed.user == user %}
+                    <tr>
+                        <td class="col-10 border rounder">{{ followed.followed_user }}
+                        </td>
+                        <td class="col-2 border rounder">
+                            <a class="btn btn-danger" type="submit"
+                                href="{% url 'follow:unfollow' followed.followed_user %}"
+                                onclick="return confirm('Etes-vous sur de vous désabonner ?')">Se
+                                désabonner</a>
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+        <div class="container">
+            <ol class="breadcrumb my-4">
+                <li class="breadcrumb-item active-color">Abonnés</li>
+            </ol>
+            <table class="table">
+                <tbody>
+                    {% for followed in user_follows %}
+                    {% if followed.followed_user == user %}
+                    <tr>
+                        <td class="border rounder">{{ followed.user.username.capitalize }}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
-<div class="container">
-    <ol class="breadcrumb my-4">
-        <li class="breadcrumb-item active">Abonnements</li>
-    </ol>
-    <table class="table">
-        <thead class="thead-inverse">
-            <tr>
-                <th>Utilisateurs</th>
-                <th>Option</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for followed in user_follows %}
-            {% if followed.user == user %}
-            <tr>
-                <td class="col-10" style="border: 1px solid black;">{{ followed.followed_user }}</td>
-                <td class="col-2 text-center" style="border: 1px solid black;">
-                    <a class="text-dark" href="{% url 'follow:unfollow' followed.followed_user %}">Se désabonner</a>
-                </td>
-            </tr>
-            {% endif %}
-            {% endfor %}
-        </tbody>
-
-    </table>
-</div>
-<div class="container">
-    <ol class="breadcrumb my-4">
-        <li class="breadcrumb-item active">Abonnés</li>
-    </ol>
-    <table class="table">
-        <thead class="thead-inverse">
-            <tr>
-                <th>Abonnés</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for followed in user_follows %}
-            {% if followed.followed_user == user %}
-            <tr>
-                <td style="border: 1px solid black;">{{ followed.user }}</td>
-            </tr>
-            {% endif %}
-            {% endfor %}
-
-        </tbody>
-    </table>
-</div>
 
 {% endblock %}

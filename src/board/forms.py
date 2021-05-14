@@ -6,6 +6,7 @@ class TicketForm(forms.ModelForm):
         model = Ticket
         fields = "__all__"
         labels = {"title": "Titre"}
+        exclude = {"user"}
 
     
 class ReviewForm(forms.ModelForm):

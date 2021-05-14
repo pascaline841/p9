@@ -1,18 +1,20 @@
 {% extends 'base_board.html' %}
 
 {% block content %}
-<div class="container">
-    <h2>Répondre une critique</h2>
+<div class="row d-flex justify-content-center ">
+    <h2>Demander une critique</h2>
 </div>
-<div class="border border-dark p-2">
-    <p>Vous êtes en train de poster en réponse à {{ticket.user}} </p>
+<div class="row d-flex justify-content-center py-2">
+    <article class="col-lg-6">
+        <span class="font-weight-bold">Vous êtes en train d'écrire à {{ ticket.user.capitalize }} </span>
+        <form class="font-weight-bold" method="POST" action="{% url 'board:comment' ticket.title %}">
+            {% csrf_token %}
+            {{ form }}
+            <div class="text-right">
+                <input class="btn btn-success" type="submit" value="Envoyer">
+            </div>
+        </form>
+    </article>
 </div>
-<form class="border border-dark p-2" method="POST" action="{% url 'board:comment' ticket.title %}">
-    {% csrf_token %}
-    {{form}}
-    <div class="text-end mt-3">
-        <input class="btn btn-success" type="submit" value="Envoyer">
-    </div>
-</form>
 
 {% endblock %}

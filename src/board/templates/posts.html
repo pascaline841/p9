@@ -1,78 +1,76 @@
-{%extends 'base_board.html' %}
-
+{% extends 'base_board.html' %}
 
 
 {% block content %}
-<div class="max_width">
-    <div class="row-align_end">
-        <a href="{% url 'board:ticket' %}" class="button">
-            Demander une critique
-        </a>
-    </div>
-    <div>
-        <a href="{% url 'board:review' %}" class="button primary">
-            Ecrire une critique
-        </a>
-    </div>
-</div>
 <div class="row d-flex justify-content-center ">
-    <h2>Vos posts</h2>
+    <h2>Vos publications</h2>
+</div>
+
+<div class="container text-center">
+    <a class="btn btn-light" href="{% url 'board:ticket' %}" type="button ">
+        Demander une critique
+    </a>
+    <a class="btn btn-light" href="{% url 'board:review' %}" type="button">
+        Ecrire une critique
+    </a>
 </div>
 
 {% for ticket in tickets %}
 {% if ticket.user == user %}
-<div class="row d-flex justify-content-center ">
+<div class="row d-flex justify-content-center py-2">
     <article class="col-lg-6">
-        <div class="ticket border border-dark mt-4 pl-3 pr-3 pb-2">
+        <div class="border border-secondary rounded mt-4 pl-3 pr-3 py-2">
             <p>
-                <span class="font-weight-light ml-12">Ticket publié le </span>
-                <span class="font-weight-bold">{{ticket.time_created}}</span>
+                <span class="font-weight-bold">Ticket publié le </span>
+                <span class="font-weight-light">{{ ticket.time_created }}</span>
             </p>
-
-            <div class="box">
-                <h5>
+            <div class="box text-center">
+                <h5 class="font-weight-bold">
                     {{ ticket.title }}
                 </h5>
             </div>
-
-            <div class="box">
-                {{ ticket.description|safe}}
+            <div class="container pt-3">
+                <div class="row">
+                    <div class="col flex-grow-0 px-1">
+                        {% if ticket.image %}
+                        <img src="{{ ticket.image.url }}" width="140" height="140" alt="img" />
+                        {% endif %}
+                    </div>
+                    <div class="col-9 text-justify">
+                        {{ ticket.description|safe }}
+                    </div>
+                </div>
             </div>
-            {% if ticket.image %}
-            <div class="row-align box">
-                <img src="{{ ticket.image.url }}" width="100px" height="100px" alt="img" />
-            </div>
-            {% endif %}
-            <div class="row-align_end">
-                <a href="" class="button">
+            <div class="text-right">
+                <a type="button" href="{% url 'board:update_ticket' ticket.title %}">
                     Modifier
                 </a>
-                <a href="">
+                <a class="text-warning" href="{% url 'board:delete_ticket' ticket.title %}"
+                    onclick="return confirm('Etes-vous sur de vouloir supprimer ?')">
                     Supprimer
                 </a>
             </div>
             <div>
                 {% for review in ticket.review_set.all %}
-
-                <div class="ticket border border-dark mt-4 pl-3 pr-3 pb-2">
+                <div class="border rounder 3px bg-light mt-4 pl-3 pr-3 py-2">
                     <p><span class="font-weight-bold">Critique publiée</span>
-                        <span class="font-weight-light ml-2">{{review.time_created}}</span>
+                        <span class="font-weight-light">{{ review.time_created }}</span>
                     </p>
-
-                    <div class="box">
+                    <div class="box text-center">
                         <h5>{{ review.headline }}</h5>
                     </div>
                     <div class="box">
                         {{ review.body }}
                     </div>
-                    <div class="box">
+                    <div class="box pt-2">
                         <h5>Note : {{ review.rating }}<span class="text-warning">&#9733</span></h5>
                     </div>
-                    <div class="row-align_end">
-                        <a href="" class="button">
+                    <div class="text-right">
+                        <a type="button" href="{% url 'board:update_ticket' ticket.title %}">
                             Modifier
                         </a>
-                        <a href="">
+                        <a class="text-warning" href="{% url 'board:delete_ticket' ticket.title %}"
+                            onclick="return confirm('Etes-vous sur de vouloir supprimer ?')">
                             Supprimer
                         </a>
                     </div>
