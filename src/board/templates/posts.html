@@ -42,10 +42,10 @@
                 </div>
             </div>
             <div class="text-right">
-                <a type="button" href="{% url 'board:update_ticket' ticket.title %}">
+                <a type="button" href="{% url 'board:update_ticket' ticket.id %}">
                     Modifier
                 </a>
-                <a class="text-warning" href="{% url 'board:delete_ticket' ticket.title %}"
+                <a class="text-warning" href="{% url 'board:delete_ticket' ticket.id %}"
                     onclick="return confirm('Etes-vous sur de vouloir supprimer ?')">
                     Supprimer
                 </a>
@@ -53,7 +53,8 @@
             <div>
                 {% for review in ticket.review_set.all %}
                 <div class="border rounder 3px bg-light mt-4 pl-3 pr-3 py-2">
-                    <p><span class="font-weight-bold">Critique publiée</span>
+                    <p><span class="font-weight-bold">Critique publiée par {{ review.user.username.capitalize }} le
+                        </span>
                         <span class="font-weight-light">{{ review.time_created }}</span>
                     </p>
                     <div class="box text-center">
@@ -66,13 +67,15 @@
                         <h5>Note : {{ review.rating }}<span class="text-warning">&#9733</span></h5>
                     </div>
                     <div class="text-right">
-                        <a type="button" href="{% url 'board:update_ticket' ticket.title %}">
+                        {% if review.user == user %}
+                        <a type="button" href="{% url 'board:update_review' review.id %}">
                             Modifier
                         </a>
-                        <a class="text-warning" href="{% url 'board:delete_ticket' ticket.title %}"
+                        <a class="text-warning" href="{% url 'board:delete_review' review.id %}"
                             onclick="return confirm('Etes-vous sur de vouloir supprimer ?')">
                             Supprimer
                         </a>
+                        {% endif %}
                     </div>
                 </div>
                 {% endfor %}

@@ -24,9 +24,13 @@ def display_posts(request):
 def create_ticket(request):
     """Create ticket to request a review. """
     if request.method == "POST":
-        form = TicketForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
+        title = request.POST.get("title")
+        description = request.POST.get("description")
+        image = request.FILES["image"] if request.FILES else None
+        ticket = Ticket(title=title, description=description,
+                        image=image, user=request.user)
+        if ticket.is_valid():
+            ticket.save()
             return redirect("board:posts")
     else :
         init_values = {}
@@ -36,80 +40,70 @@ def create_ticket(request):
     return render(request, "ticket.html", {"form": form})
 
 @login_required
-def delete_ticket(request, ticket_title):
+def delete_ticket(request, ticket_id):
     """Delete a ticket. """
-    ticket = Ticket.objects.get(title=ticket_title)
+    ticket = Ticket.objects.get(id=ticket_id)
     if request.user == ticket.user:
         ticket.delete()
     return redirect("board:posts")
 
 @login_required
-def update_ticket(request, ticket_title):
+def update_ticket(request, ticket_id):
     """Update a ticket. """
-    ticket = Ticket.objects.get(title=ticket_title)
-    if ticket.user == request.user:
-        form = TicketForm(instance=ticket)
-        if request.method == "POST":
-            form = TicketForm(request.POST, request.FILES, instance=ticket)
-            if form.is_valid():
-                form.save()
-                return redirect("board:posts")
-    return render(request, "ticket.html", {"ticket": ticket})
-
-        
-
+ 
 @login_required
 def create_review(request):
     """Create a ticket and its review in the same time. """
     if request.method != "POST":   
-        return render(request, "review.html", 
-                      {"r": range(6)})
+        return render(request, "review.html", {"r": range(6)})
     title = request.POST.get("title")
     description = request.POST.get("description")
     image = request.FILES["image"] if request.FILES else None
     ticket = Ticket(title=title, description=description,
                     image=image, user=request.user)
-    ticket.save()
+    if ticket.is_valid():
+            ticket.save()
     headline = request.POST.get("headline")
     body = request.POST.get("body")
     rating = request.POST.get("rating")
-
     review = Review(headline=headline, body=body,
                     rating=rating, ticket=ticket, user=request.user)
-    review.save()
-    return redirect("board:posts")
+    if review.is_valid():
+        review.save()
+        return redirect("board:posts")
 
 @login_required
-def add_comment(request, ticket_title):
+def add_comment(request, ticket_id):
     """Add a review to a ticket. """
-    ticket = Ticket.objects.get(title=ticket_title)
-    if request.method == "POST":
-        form = ReviewForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect("board:flux")
-    else :
-        form = ReviewForm()
-    return render(request, "comment.html", {"form":form, 'ticket': ticket, 'r': range(6)})
+    if request.method != "POST":   
+        return render(request, "comment.html", {"r": range(6)})
+    ticket = Ticket.objects.get(id=ticket_id)
+    headline = request.POST.get("headline")
+    body = request.POST.get("body")
+    rating = request.POST.get("rating")
+    comment = Review(headline=headline, body=body, rating=rating, ticket=ticket, 
+                     user=request.user)
+    if comment.is_valid():
+        comment.save()
+        return redirect("board:posts")
 
 @login_required
-def delete_review(request, review_headline):
+def delete_review(request, review_id):
     """Delete a review. """
-    review = Review.objects.get(headline=review_headline)
+    review = Review.objects.get(id=review_id)
     if request.user == review.user:
         review.delete()
     return redirect("board:posts")
 
 @login_required
-def update_review(request, review_headline):
+def update_review(request, review_id):
     """Update a review without user ticket. """
-    review = Review.objects.get(headline=review_headline)
-    if request.user == review.user:
-        form = ReviewForm(instance=review)
-        if request.method == "POST":
-            form = ReviewForm(request.POST, request.FILES, instance = review)    
-            if form.is_valid():
-                form.save()    
-                return redirect("board:posts")
-    return render(request, "review.html", {"review": review, "r": range(6)})
-        
+    update_review= Review.objects.get(id=review_id)
+    if request.method == "GET":
+        form = ReviewForm(instance=update_review)
+        return render(request, 'comment.html', {"review":update_review, "r":range(6)})
+    elif request.method == "POST":
+        form = ReviewForm(request.POST, request.FILES, instance = update_review)    
+        if form.is_valid():
+            form.save()    
+            return redirect("board:posts")
