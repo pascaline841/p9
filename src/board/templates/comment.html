@@ -9,15 +9,14 @@
         <div class="border rounder 3px bg-light mt-4 pl-3 pr-3 py-2">
             <span class="font-weight-italic">Vous êtes en train de répondre à {{ ticket.user.username.capitalize}}
             </span>
-            {% if form.review.id %}
-            <form class="font-weight-bold" method="POST"
-                action="{% url 'board:update_review' id_review=form.review.id %}">
+            {% if review.id %}
+            <form class="font-weight-bold" method="POST" action="{% url 'board:update_review' review_id=review.id %}">
                 {% else %}
-                <form class="font-weight-bold" method="POST" action="">
+                <form class="font-weight-bold" method="POST" action="{% url 'board:comment' ticket_id=ticket.id %}" }>
                     {% endif %}
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <div class="text-right">
+                    <div class=" text-right">
                         <input class="btn btn-success" type="submit" value="Envoyer">
                     </div>
                 </form>

@@ -9,7 +9,8 @@
     <article class="col-lg-6">
         <div class="border rounder 3px bg-light mt-4 pl-3 pr-3 py-2">
             {% if form.ticket.id %}
-            <form method="POST" action="{% url 'board:update_ticket' form.ticket.id %}">
+            <form class="font-weight-bold" method="POST"
+                action="{% url 'board:update_ticket' id_ticket=form.ticket.id %}">
                 {% else %}
                 <form class="font-weight-bold" method="POST" action="{% url 'board:ticket' %}">
                     {% endif %}
