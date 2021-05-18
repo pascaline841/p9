@@ -29,11 +29,11 @@
                 </div>
                 <div class="form-group">
                     <label for="rating">Note</label><br>
-                    <div class="d-flex justify-content-evenly">
-                        {% for i in r %}
+                    <div class="d-flex justify-content-evenly ">
+                        {% for r in rating %}
                         <div>
-                            <input type="radio" id="{{i}}" name="rating" value="{{ i }}" required>
-                            <label for="{{i}}">- {{i}}</label>
+                            <input type="radio" id="{{r}}" name="rating" value="{{ r }}" required>
+                            <label class=mr-3 for="{{r}}">{{r}}</label>
                         </div>
                         {% endfor %}
                     </div>

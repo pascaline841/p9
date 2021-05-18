@@ -9,23 +9,12 @@
     <article class="col-lg-6">
         <div class="border rounder 3px bg-light mt-4 pl-3 pr-3 py-2">
             {% if form.ticket.id %}
-            <form method="POST" action="{% url 'board:update_ticket' id_ticket=form.ticket.id %}">
+            <form method="POST" action="{% url 'board:update_ticket' form.ticket.id %}">
                 {% else %}
                 <form class="font-weight-bold" method="POST" action="{% url 'board:ticket' %}">
                     {% endif %}
                     {% csrf_token %}
-                    <div class="form-group">
-                        <label for="headline">Titre</label>
-                        <input type="text" class="form-control" id="headline" name="title">
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Description</label>
-                        <textarea class="form-control" id="description" name="description" rows="5"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="image">Image</label><br>
-                        <input name="file" type="file" size="40" id="image">
-                    </div>
+                    {{ form.as_p }}
                     <div class="text-right">
                         <input class="btn btn-success" type="submit" value="Envoyer">
                     </div>
