@@ -47,7 +47,19 @@
                     <div class="box pt-2">
                         <h5>Note : {{ review.rating }}<span class="text-warning">&#9733</span></h5>
                     </div>
+                    {% if review.user == user %}
+                    <div class="text-right">
+                        <a type="button" href="{% url 'board:update_review' review.id %}">
+                            Modifier
+                        </a>
+                        <a class="text-warning" href="{% url 'board:delete_review' review.id %}"
+                            onclick="return confirm('Etes-vous sur de vouloir supprimer ?')">
+                            Supprimer
+                        </a>
+                    </div>
+                    {% endif %}
                 </div>
+
                 {% endfor %}
             </div>
         </div>

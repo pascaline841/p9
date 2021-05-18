@@ -66,17 +66,15 @@ def create_review(request):
     image = request.FILES["image"] if request.FILES else None
     ticket = Ticket(title=title, description=description,
                     image=image, user=request.user)
-    if ticket.is_valid():
-            ticket.save()
+    ticket.save()
     headline = request.POST.get("headline")
     body = request.POST.get("body")
     rating = request.POST.get("rating")
     review = Review(headline=headline, body=body,
                     rating=rating, ticket=ticket, user=request.user)
-    if review.is_valid():
-        review.save()
-        return redirect("board:posts")
-    return render(request, "review.html")
+    review.save()
+    return redirect("board:posts")
+
 
 @login_required
 def add_comment(request, ticket_id):
