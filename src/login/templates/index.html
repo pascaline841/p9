@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-body text-center">
                 <h3 class="card-title">Connectez-vous</h3>
-                <form class="pt-3" method="POST" action="{% url 'login:index' %}">
+                <form class="signin" method="POST" action="{% url 'login:index' %}">
                     {% csrf_token %}
                     {{form.as_p}}
                     <input class="btn btn-primary fit" type="submit" value="Se connecter">

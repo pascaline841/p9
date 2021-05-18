@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-body text-center">
                 <h3 class="card-title">Inscrivez-vous</h3>
-                <form class="pt-3" method="POST" action="{% url 'login:signup' %}">
+                <form class="signup" method="POST" action="{% url 'login:signup' %}">
                     {% csrf_token %}
                     {{ form.as_p}}
                     <a class="button text-muted" href="{% url 'login:index' %}">Retour</a>
