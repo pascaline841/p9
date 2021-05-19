@@ -7,12 +7,13 @@
 <div class="row d-flex justify-content-center py-2">
     <article class="col-lg-6">
         <div class="border rounder 3px bg-light mt-4 pl-3 pr-3 py-2">
-            <span class="font-weight-italic">Vous êtes en train de répondre à {{ ticket.user.username.capitalize}}
+            <span class="font-weight-italic">Vous êtes en train de répondre à {{ ticket.user }}
             </span>
-            {% if review.id %}
-            <form class="font-weight-bold" method="POST" action="{% url 'board:update_review' review_id=review.id %}">
+            {% if form.review.id %}
+            <form class="font-weight-bold" method="POST"
+                action="{% url 'board:update_review' review_id=form.review.id %}">
                 {% else %}
-                <form class="font-weight-bold" method="POST" action="{% url 'board:comment' ticket_id=ticket.id %}" }>
+                <form class="font-weight-bold" method="POST" action="{% url 'board:comment' ticket_id=ticket.id  %}" }>
                     {% endif %}
                     {% csrf_token %}
                     {{ form.as_p }}

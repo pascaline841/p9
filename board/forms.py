@@ -2,10 +2,13 @@ from django import forms
 from .models import Ticket, Review
 
 class TicketForm(forms.ModelForm):
-    class Meta:
+     class Meta:
         model = Ticket
         fields = ["title", "description", "image"]
-        labels = {"title": "Titre"}
+        labels = {"title": "Titre du livre", 
+                  "description":"Résumé du livre", 
+                  "image":"Image de couverture",
+                }
         widgets = {"description":forms.Textarea(attrs={"rows":4})}
         
 class ReviewForm(forms.ModelForm):
@@ -22,7 +25,7 @@ class ReviewForm(forms.ModelForm):
     class Meta :
         model = Review
         fields = ["headline", "rating", "body"]
-        labels = {"headline":"Titre", "body":"Commentaire"}       
+        labels = {"headline":"Avi général", "body":"Commentaire"}       
         widgets = {"body":forms.Textarea(attrs={"rows":4})}
 
         
