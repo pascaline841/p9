@@ -22,7 +22,7 @@ ul{
     padding-right: 5rem;
 }
 
-#id_title, #id_headline {
+#id_title, #id_headline #id_username{
     display: block;
     width: 100%;
     height: calc(2.25rem + 2px);
@@ -38,4 +38,12 @@ ul{
 }
 label{
     list-style-type: none;
+}
+.helptext{
+    font-size: small;
+    font-style: italic;
+    color: #868686;
+}
+.signup li{
+    display: none;
 }

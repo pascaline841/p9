@@ -30,6 +30,10 @@
             <ol class="breadcrumb my-4">
                 <li class="breadcrumb-item active-color">Abonnements</li>
             </ol>
+
+            {% if followed_user == False %}
+            <p>rien</p>
+            {%else%}
             <table class="table">
                 <thead class="thead-inverse">
                     <tr class="text-center">
@@ -53,8 +57,11 @@
                     {% endif %}
                     {% endfor %}
                 </tbody>
-
             </table>
+
+
+            {% endif %}
+
         </div>
         <div class="container">
             <ol class="breadcrumb my-4">
@@ -62,6 +69,7 @@
             </ol>
             <table class="table">
                 <tbody>
+
                     {% for followed in user_follows %}
                     {% if followed.followed_user == user %}
                     <tr>
