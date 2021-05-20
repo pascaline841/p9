@@ -33,9 +33,10 @@ def display_posts(request):
 def create_ticket(request):
     """Create ticket to request a review."""
     if request.method == "POST":
-        form = TicketForm(request.POST)
+        form = TicketForm(request.POST, request.FILES)
         if form.is_valid():
             ticket = form.save(commit=False)
+            ticket.image = request.FILES
             ticket.user = request.user
             ticket.save()
             return redirect("board:posts")
@@ -75,7 +76,7 @@ def update_ticket(request, ticket_id):
 def create_review(request):
     """Create a ticket and its review in the same time."""
     if request.method == "POST":
-        form_ticket = TicketForm(request.POST)
+        form_ticket = TicketForm(request.POST, request.FILES)
         if form_ticket.is_valid():
             ticket = form_ticket.save(commit=False)
             ticket.user = request.user
@@ -134,5 +135,5 @@ def update_review(request, review_id):
             return redirect("board:flux")
     else:
         form = ReviewForm(instance=instance_review)
-    context = {"form": form, "review_id": instance_review}
+    context = {"form": form}
     return render(request, "comment.html", context)

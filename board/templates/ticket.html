@@ -9,10 +9,9 @@
     <article class="col-lg-6">
         <div class="border rounder 3px bg-light mt-4 pl-3 pr-3 py-2">
             {% if form.ticket.id %}
-            <form class="font-weight-bold" method="POST"
-                action="{% url 'board:update_ticket' ticket_id=form.ticket.id %}">
+            <form class="font-weight-bold" method="POST" enctype="multipart/form-data" action="">
                 {% else %}
-                <form class="font-weight-bold" method="POST" action="{% url 'board:ticket' %}">
+                <form class="font-weight-bold" method="POST" action="">
                     {% endif %}
                     {% csrf_token %}
                     {{ form.as_p }}
