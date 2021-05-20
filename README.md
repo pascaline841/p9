@@ -24,7 +24,7 @@ Start by closing the repository :
 
 ```
 git clone https://github.com/pascaline841/p9
-
+```
 - Start access the project folder
 
 - Create a virtual environment
