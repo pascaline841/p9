@@ -2,7 +2,12 @@
 
 
 {% block content %}
+{% if not tickets %}
+<div class="row d-flex justify-content-center py-2">
+    <p class="font-weight-bold">Les utilisateurs qu vous suivez n'ont pas encore écrit.</p>
+</div>
 
+{% else %}
 {% for ticket in tickets %}
 <div class="row d-flex justify-content-center py-2">
     <div class="col-lg-6">
@@ -27,12 +32,15 @@
                     </div>
                 </div>
             </div>
+
             <div>
+                {% if not ticket.review_set.all %}
                 <div class="text-right">
                     <a class="button" href="{% url 'board:comment' ticket.id %}">
                         Répondre
                     </a>
                 </div>
+                {% endif %}
                 {% for review in ticket.review_set.all %}
                 <div class="ticket border rounder 3px bg-light mt-4 pl-3 pr-3 py-2">
                     <p><span class="font-weight-bold">Critique publiée par {{ review.user.username.capitalize }}</span>
@@ -67,4 +75,5 @@
     </div>
 </div>
 {% endfor %}
+{% endif %}
 {% endblock %}

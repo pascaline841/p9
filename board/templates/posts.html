@@ -15,10 +15,15 @@
     </a>
 </div>
 
-{% for ticket in tickets %}
-{% if ticket.user == user %}
+{% if not tickets %}
 <div class="row d-flex justify-content-center py-2">
-    <article class="col-lg-6">
+    <p class="font-weight-bold">Vous n'avez encore rien publié.</p>
+</div>
+{% else %}
+{% for ticket in tickets %}
+<div class="row d-flex justify-content-center py-2">
+
+    <div class="col-lg-6">
         <div class="border border-secondary rounded mt-4 pl-3 pr-3 py-2">
             <p>
                 <span class="font-weight-bold">Ticket publié le </span>
@@ -81,8 +86,9 @@
                 {% endfor %}
             </div>
         </div>
-    </article>
+    </div>
+    {% endfor %}
+    {% endif %}
 </div>
-{% endif %}
-{% endfor %}
+
 {% endblock %}
