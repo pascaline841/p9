@@ -8,17 +8,13 @@ from follow.models import UserFollows
 
 @login_required
 def display_flux(request):
-    """Display tickets and review from the following accounts."""
+    """Display tickets and reviews from the following accounts."""
     users = [
         followed.followed_user
         for followed in UserFollows.objects.filter(user=request.user)
     ]
     users.append(request.user)
-    tickets = (
-        Ticket.objects.filter(user__in=users)
-        .exclude(user=request.user)
-        .order_by("-time_created")
-    )
+    tickets = Ticket.objects.filter(user__in=users).order_by("-time_created")
     return render(request, "flux.html", {"tickets": tickets})
 
 
@@ -59,6 +55,7 @@ def delete_ticket(request, ticket_id):
 def update_ticket(request, ticket_id):
     """Update a ticket."""
     instance_ticket = Ticket.objects.get(id=ticket_id)
+
     if request.method == "POST":
         form = TicketForm(request.POST, request.FILES, instance=instance_ticket)
         if form.is_valid():
@@ -124,7 +121,7 @@ def delete_review(request, review_id):
 
 @login_required
 def update_review(request, review_id):
-    """Update a review without user ticket."""
+    """Update a review."""
     instance_review = Review.objects.get(id=review_id)
     if request.method == "POST":
         form = ReviewForm(request.POST, request.FILES, instance=instance_review)

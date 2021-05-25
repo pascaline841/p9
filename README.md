@@ -31,7 +31,6 @@ git clone https://github.com/pascaline841/p9
 ```
 python -m venv venv
 ```
-
 - Enable the virtual environment 
 ```
 cd venv/scripts
@@ -43,7 +42,29 @@ source activate
 ```
 pip install -r requirements.txt
 ```
-- Install the database POSTgresql
+- Instal PostgreSQL
+https://www.postgresql.org/
+
+- Launch SQL Shell to create a user and a database :
+```
+psql
+CREATE USER admin WITH ENCRYPTED PASSWORD 'OCPython2021';
+ALTER ROLE admin SET client_encoding TO 'utf8';
+ALTER ROLE admin SET default_transaction_isolation TO 'read_committed';
+CREATE DATABASE litreview;
+GRANT ALL PRIVILEGES ON DATABASE litreview TO admin;
+```
+- Leave the SQL Shell 
+- Migrate the data structures to the database and test out the server.
+```
+python manage.py makemigrations
+python manage.py migrate
+```
+After creating the database structure, create an administrative account by typing:
+```
+python manage.py createsuperuser
+```
+You will be asked to select a username, provide an email address, and choose and confirm a password for the account.
 
 ## LAUNCH 
 
@@ -55,4 +76,3 @@ Launch
 ```
 http://127.0.0.1:8000
 ```
-
