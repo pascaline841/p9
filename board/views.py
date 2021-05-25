@@ -14,7 +14,11 @@ def display_flux(request):
         for followed in UserFollows.objects.filter(user=request.user)
     ]
     users.append(request.user)
-    tickets = Ticket.objects.filter(user__in=users).order_by("-time_created")
+    tickets = (
+        Ticket.objects.filter(user__in=users)
+        # .exclude(user=request.user) affiche uniquement les posts des autres users
+        .order_by("-time_created")
+    )
     return render(request, "flux.html", {"tickets": tickets})
 
 
