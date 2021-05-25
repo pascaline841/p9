@@ -34,15 +34,13 @@ python -m venv venv
 - Enable the virtual environment 
 ```
 cd venv/scripts
-```
-```
 source activate
 ```
 - Install the python dependencies on the virtual environment
 ```
 pip install -r requirements.txt
 ```
-- Instal PostgreSQL
+- Install PostgreSQL
 https://www.postgresql.org/
 
 - Launch SQL Shell to create a user and a database :
@@ -73,6 +71,12 @@ Run the program
 python manage.py runserver
 ```
 Launch
-```
 http://127.0.0.1:8000
-```
+
+## SCREENSHOT
+
+![screenshot0](https://user-images.githubusercontent.com/55999192/119537783-439ec500-bd3f-11eb-84f0-e27279db755e.PNG)
+<br>
+![screenshot1](https://user-images.githubusercontent.com/55999192/119537708-2cf86e00-bd3f-11eb-977c-5252131a6b8e.PNG)
+<br>
+![screenshot2](https://user-images.githubusercontent.com/55999192/119537835-51544a80-bd3f-11eb-8580-aaf6fd6c9993.PNG)
