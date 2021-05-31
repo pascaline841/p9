@@ -18,7 +18,7 @@
                     <h3 class="mr-4">LITReview</h3>
                 </div>
                 <div class=" menu col-lg-5 text-right mt-2">
-                    <a class="mr-3 font-weight-bold"> {{ user.username.capitalize }}</a>
+                    <a class="mr-3 font-weight-bold"> {{ user.username|capfirst }}</a>
                     <a class="mr-3" href="{% url 'board:flux' %}">Flux</a>
                     <a class="mr-3" href="{% url 'board:posts' %}">Posts</a>
                     <a class="mr-3" href="{% url 'follow:follow' %}">Abonnements</a>

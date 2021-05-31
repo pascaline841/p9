@@ -6,20 +6,30 @@
 </div>
 <div class="row d-flex justify-content-center py-2">
     <article class="col-lg-6">
-        <div class="border rounder 3px bg-light mt-4 pl-3 pr-3 py-2">
-            <span class="font-weight-italic">Vous êtes en train de répondre à {{ ticket.user.username.capitalize }}
+        <div class="border rounder 3px bg-light mt-4 px-3 py-2">
+            <span class="font-italic">Vous êtes en train de répondre à {{ ticket.user.username|capfirst }}
             </span>
+            <div class="border rounder 3px bg-white my-4 px-3 py-4">
+                <div class="box text-center">
+                    <h5 class="font-weight-bold">
+                        {{ ticket.title }}
+                    </h5>
+                </div>
+                <div class="text-center">
+                    {{ ticket.description|safe }}
+                </div>
+            </div>
             {% if form.review.id %}
-            <form class="font-weight-bold" method="POST" action="">
-                {% else %}
-                <form class="font-weight-bold" method="POST" action="">
-                    {% endif %}
+                <form class="font-weight-bold" method="POST">
+            {% else %}
+                <form class="font-weight-bold" method="POST">
                     {% csrf_token %}
                     {{ form.as_p }}
                     <div class=" text-right">
                         <input class="btn btn-success" type="submit" value="Envoyer">
                     </div>
                 </form>
+            {% endif %}
         </div>
     </article>
 </div>

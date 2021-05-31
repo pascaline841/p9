@@ -16,16 +16,11 @@
                             <input class="btn btn-primary col-4 ml-1" type="submit" value="S'abonner" />
                         </div>
                         {% if messages %}
-                        {% for message in messages %}
-                        <p class="text-danger"> {{ message }}</p>
-                        {% endfor %}
+                            {% for message in messages %}
+                                <p class="text-danger"> {{ message }}</p>
+                            {% endfor %}
                         {% endif %}
                     </form>
-                </div>
-                <div class="font-weight-light text-center">
-                    {% for followed in user_follows %}
-                    {{ followed.followed_user.username.capitalize }},
-                    {% endfor %}
                 </div>
             </ol>
         </div>
@@ -42,18 +37,18 @@
                 </thead>
                 <tbody>
                     {% for followed in user_follows %}
-                    {% if followed.user == user %}
-                    <tr>
-                        <td class="col-10 border rounder">{{ followed.followed_user.username.capitalize }}
-                        </td>
-                        <td class="col-2 border rounder">
-                            <a class="btn btn-danger" type="submit"
-                                href="{% url 'follow:unfollow' followed.followed_user %}"
-                                onclick="return confirm('Etes-vous sur de vous désabonner ?')">Se
-                                désabonner</a>
-                        </td>
-                    </tr>
-                    {% endif %}
+                        {% if followed.user == user %}
+                            <tr>
+                                <td class="col-10 border rounder">{{ followed.followed_user.username|capfirst }}
+                                </td>
+                                <td class="col-2 border rounder">
+                                    <a class="btn btn-danger" type="submit"
+                                        href="{% url 'follow:unfollow' followed.followed_user %}"
+                                        onclick="return confirm('Etes-vous sur de vous désabonner ?')">Se
+                                        désabonner</a>
+                                </td>
+                            </tr>
+                        {% endif %}
                     {% endfor %}
                 </tbody>
             </table>
@@ -65,15 +60,15 @@
             <table class="table">
                 <tbody>
                     {% for followed in user_follows %}
-                    {% if followed.followed_user == user %}
-                    <tr>
-                        <td class="border rounder">{{ followed.user.username.capitalize }}</td>
-                    </tr>
-                    {% elif followed.followed_user == None %}
-                    <tr>
-                        <td class="border rounder">Pas d'abonnés</td>
-                    </tr>
-                    {% endif %}
+                        {% if followed.followed_user == user %}
+                            <tr>
+                                <td class="border rounder">{{ followed.user.username|capfirst }}</td>
+                            </tr>
+                        {% elif followed.followed_user == None %}
+                            <tr>
+                                <td class="border rounder">Pas d'abonnés</td>
+                            </tr>
+                        {% endif %}
                     {% endfor %}
 
                 </tbody>

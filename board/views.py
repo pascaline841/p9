@@ -36,7 +36,6 @@ def create_ticket(request):
         form = TicketForm(request.POST, request.FILES)
         if form.is_valid():
             ticket = form.save(commit=False)
-            ticket.image = request.FILES
             ticket.user = request.user
             ticket.save()
             return redirect("board:posts")
@@ -59,7 +58,6 @@ def delete_ticket(request, ticket_id):
 def update_ticket(request, ticket_id):
     """Update a ticket."""
     instance_ticket = Ticket.objects.get(id=ticket_id)
-
     if request.method == "POST":
         form = TicketForm(request.POST, request.FILES, instance=instance_ticket)
         if form.is_valid():
