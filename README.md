@@ -18,7 +18,7 @@ pytz==2021.1<br>
 sqlparse==0.4.1<br>
 <br>
 
-## INSTALLATION 
+## INSTALLATION for Window
 
 Start by closing the repository :
 
@@ -40,39 +40,34 @@ source activate
 ```
 pip install -r requirements.txt
 ```
-- Install PostgreSQL
-https://www.postgresql.org/
-
-- Launch SQL Shell to create a user and a database :
+- Create the database structure by using sqlite3 
 ```
-psql
-CREATE USER admin WITH ENCRYPTED PASSWORD 'OCPython2021';
-ALTER ROLE admin SET client_encoding TO 'utf8';
-ALTER ROLE admin SET default_transaction_isolation TO 'read_committed';
-CREATE DATABASE litreview;
-GRANT ALL PRIVILEGES ON DATABASE litreview TO admin;
-```
-- Leave the SQL Shell 
-- Migrate the data structures to the database and test out the server.
-```
-python manage.py makemigrations
 python manage.py migrate
-```
-After creating the database structure, create an administrative account by typing:
-```
-python manage.py createsuperuser
-```
+``` 
+- Create an administrative account : <br>
 You will be asked to select a username, provide an email address, and choose and confirm a password for the account.
-
+```
+winpty python manage.py createsuperuser
+```
+- Create and open a file named .env then paste :
+```
+DJANGO_SETTINGS_MODULE="litreview.settings.development"
+DB_SECRET_KEY= 
+```
+Then complete DB_SECRET_KEY with the key you receive in private.
 ## LAUNCH 
 
 Run the program
 ```
 python manage.py runserver
 ```
-Launch
+Launch :
+
 http://127.0.0.1:8000
 
+To access to the admin account :
+
+http://127.0.0.1:8000/admin 
 ## SCREENSHOT
 
 ![screenshot0](https://user-images.githubusercontent.com/55999192/119537783-439ec500-bd3f-11eb-84f0-e27279db755e.PNG)
@@ -80,3 +75,5 @@ http://127.0.0.1:8000
 ![screenshot1](https://user-images.githubusercontent.com/55999192/119537708-2cf86e00-bd3f-11eb-977c-5252131a6b8e.PNG)
 <br>
 ![screenshot2](https://user-images.githubusercontent.com/55999192/119537835-51544a80-bd3f-11eb-8580-aaf6fd6c9993.PNG)
+<br>
+![screenshot3](https://user-images.githubusercontent.com/55999192/120231186-bb6c6400-c205-11eb-848d-d3912bd5fe81.PNG)
