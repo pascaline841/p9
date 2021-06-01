@@ -4,23 +4,24 @@ from django.shortcuts import render, redirect
 
 
 def signup(request):
-    """Create a user account. """ 
+    """Create a user account."""
     if request.method == "POST":
-        form = UserCreationForm(data =request.POST)
+        form = UserCreationForm(data=request.POST)
         if form.is_valid():
-            user= form.save()
+            user = form.save()
             login(request, user)
             return redirect("login:index")
-    else:       
+    else:
         form = UserCreationForm()
     return render(request, "signup.html", {"form": form})
+
 
 def signin(request):
     "Log into a user account."
     if request.method == "POST":
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
-            user= form.get_user()
+            user = form.get_user()
             login(request, user)
             return redirect("board:flux")
     else:

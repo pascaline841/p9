@@ -68,6 +68,13 @@ http://127.0.0.1:8000
 To access to the admin account :
 
 http://127.0.0.1:8000/admin 
+
+## Use FLAKE8
+In order to generate a flake8 report, run the following command :
+```
+flake8 --ignore=E501,W503 --format=html --htmldir=flake-report --exclude=venv,manage.py,db.sqlite3,litreview
+```
+Open the html file into the flake-report repertory to show the report.
 ## SCREENSHOT
 
 ![screenshot0](https://user-images.githubusercontent.com/55999192/119537783-439ec500-bd3f-11eb-84f0-e27279db755e.PNG)
