@@ -10,13 +10,8 @@ Beta version of a website made with Django. Allows you to post reviews to respon
 
 ## REQUISITORIES 
 Python3<br>
-asgiref==3.3.4<br>
-Django==3.2.2<br>
-Pillow==8.2.0<br>
-psycopg2==2.8.6<br>
-pytz==2021.1<br>
-sqlparse==0.4.1<br>
-<br>
+Django3<br>
+Flake8-html<br>
 
 ## INSTALLATION for Window
 
