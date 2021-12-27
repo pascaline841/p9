@@ -13,25 +13,35 @@ Python3<br>
 Django3<br>
 Flake8-html<br>
 
-## INSTALLATION for Window
-
+## INSTALLATION
 Start by closing the repository :
+```
+git clone https://github.com/pascaline841/socialmedia-django
+```
+Start access the project folder
 
+## for Window
+Create a virtual environment
 ```
-git clone https://github.com/pascaline841/p9
+python -m venv env
 ```
-- Start access the project folder
-
-- Create a virtual environment
+Enable the virtual environment
 ```
-python -m venv venv
-```
-- Enable the virtual environment 
-```
-cd venv/scripts
+cd env/scripts
 source activate
 ```
-- Install the python dependencies on the virtual environment
+
+## for Linux or macOS
+Create a virtual environment 
+```
+python3 -m venv env
+```
+Activate the virtual environment with 
+```
+source env/bin/activate 
+```
+## . . . 
+Install the python dependencies to the virtual environment
 ```
 pip install -r requirements.txt
 ```
