@@ -16,7 +16,7 @@ Flake8-html<br>
 ## INSTALLATION
 Start by closing the repository :
 ```
-git clone https://github.com/pascaline841/socialmedia-django
+git clone https://github.com/pascaline841/p09
 ```
 Start access the project folder
 
