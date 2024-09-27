@@ -1,7 +1,4 @@
-<h1 align="center">DJANGO Project -  LIT REVIEW  -  OpenClassRooms Project 09 </h1><br>
-<br>
-Ce script Python est le neuvieme projet réalisé dans le cadre d'une formation chez OpenClassrooms. 
-<br>
+<h1 align="center">DJANGO Project -  LIT REVIEW</h1>
   
 ## OVERVIEW
 Beta version of a website made with Django. Allows you to post reviews to respond to the reviews of other user, to post your own review and to follow users and their posts.
@@ -16,7 +13,7 @@ Flake8-html<br>
 ## INSTALLATION
 Start by closing the repository :
 ```
-git clone https://github.com/pascaline841/p09
+git clone https://github.com/pascaline841/python_p09
 ```
 Start access the project folder
 
